@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.metrics.pairwise import cosine_similarity
+from fuzzywuzzy import fuzz, process
 
 from .models import Smartphones
 
