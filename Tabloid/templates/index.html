@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container pt-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {% if query %}
+            <div class="lg:text-2xl md:text-xl text-lg lg:p-3 p-1 font-black text-gray-700"> 
+                Hasil untuk query "{{ query }}"
+            </div>
+            {% for smartphone in smartphone %}
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <img src="{{ smartphone.image_url }}" alt="{{ smartphone.name }}" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h2 class="text-xl font-bold mb-2">{{ smartphone.model }}</h2>
+                    <p class="text-gray-700 mb-2">{{ smartphone.processor }}</p>
+                    <p class="text-gray-900 font-semibold mb-2">{{ smartphone.price }}</p>
+                    <p class="text-gray-700 mb-4">{{ smartphone.camera }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            {% for smartphone in smartphone %}
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <img src="{{ smartphone.image_url }}" alt="{{ smartphone.name }}" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h2 class="text-xl font-bold mb-2">{{ smartphone.model }}</h2>
+                    <p class="text-gray-700 mb-2">{{ smartphone.processor }}</p>
+                    <p class="text-gray-900 font-semibold mb-2">{{ smartphone.price }}</p>
+                    <p class="text-gray-700 mb-4">{{ smartphone.camera }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+        </div>
+        <div>
+                        <nav class="relative z-0 inline-flex shadow-sm">
+                            <div>
+                                {% if smartphone.has_previous %}
+                                    <a href="?page={{ smartphone.previous_page_number }}"
+                                    class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150"
+                                    aria-label="Previous">
+                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                    </a>
+                                {% else %}
+                                    <span class="inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500">
+                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd"
+                                                d="M10.707 14.707a1 1 0 01-1.414 0L6.586 11.5l-.793.707 4.5 5a1 1 0 001.414 0l4.5-5-.793-.707-3.121 3.121z"
+                                                clip-rule="evenodd"></path>
+                                            <path fill-rule="evenodd"
+                                                d="M10.707 5.293a1 1 0 011.414 0L14.914 8.5l.793-.707-4.5-5a1 1 0 00-1.414 0l-4.5 5 .793.707 3.121-3.121z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                    </span>
+                                {% endif %}
+                            </div>
+                            <div>
+                                {% for page_num in smartphone.paginator.page_range %}
+                                    <a href="?page={{ page_num }}"
+                                    class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-tertiary active:text-gray-700 transition ease-in-out duration-150 hover:bg-tertiary">{{ page_num }}</a>
+                                {% endfor %}
+                            </div>
+                            <div>
+                                {% if smartphone.has_next %}
+                                    <a href="?page={{ smartphone.next_page_number }}"
+                                    class="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150"
+                                    aria-label="Next">
+                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                    </a>
+                                {% else %}
+                                    <span class="inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500">
+                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M10.707 14.707a1 1 0 01-1.414 0L6.586 11.5l-.793.707 4.5 5a1 1 0 001.414 0l4.5-5-.793-.707-3.121 3.121z"
+                                clip-rule="evenodd"></path>
+                            <path fill-rule="evenodd"
+                                d="M10.707 5.293a1 1 0 011.414 0L14.914 8.5l.793-.707-4.5-5a1 1 0 00-1.414 0l-4.5 5 .793.707 3.121-3.121z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </span>
+                                {% endif %}
+                            </div>
+                        </nav>
+                    </div>
+        </div>
+    </div>
+{% endblock content %}
